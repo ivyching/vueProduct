@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" />
     <router-view />
   </div>
 </template>
@@ -9,7 +8,7 @@
 export default {
   name: "App",
   created() {
-    const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
+    const api = `/api/${process.env.CUSTOMPATH}/products`;
 
     process.env.APIPATH + "/api/" + process.env.CUSTOMPATH + "";
     this.$http.get(api).then((response) => {
@@ -20,5 +19,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~bootstrap/scss/bootstrap";
+@import "./assets/all";
 </style>
