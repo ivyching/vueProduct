@@ -17,6 +17,7 @@ export default {
       const api = `/logout`;
       const vm = this;
       this.$http.post(api).then((response) => {
+        console.log(response.data.success);
         if (response.data.success) {
           vm.$router.push("/login");
         }

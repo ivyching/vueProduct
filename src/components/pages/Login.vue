@@ -4,6 +4,7 @@
       <h1 class="h3 mb-3 fw-normal">請先登入</h1>
 
       <div class="form-floating">
+        <label for="floatingInput">帳號</label>
         <input
           type="email"
           class="form-control"
@@ -11,9 +12,9 @@
           placeholder="name@example.com"
           v-model="user.username"
         />
-        <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
+        <label for="floatingPassword">密碼</label>
         <input
           type="password"
           class="form-control"
@@ -21,17 +22,12 @@
           placeholder="Password"
           v-model="user.password"
         />
-        <label for="floatingPassword">Password</label>
       </div>
 
       <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
+        <label> <input type="checkbox" value="remember-me" /> 記住我 </label>
       </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">
-        Sign in
-      </button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">登入</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
     </form>
   </div>
