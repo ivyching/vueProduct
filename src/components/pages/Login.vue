@@ -49,9 +49,8 @@ export default {
       const api = `/admin/signin`;
       const vm = this;
       this.$http.post(api, vm.user).then((response) => {
-        console.log(response.data);
         if (response.data.success) {
-          vm.$router.push("/");
+          vm.$router.push("/admin/products");
         }
       });
     },
