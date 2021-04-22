@@ -12,7 +12,7 @@
         <th width="120">原價</th>
         <th width="120">售價</th>
         <th width="80">狀態</th>
-        <th width="80"></th>
+        <th width="180"></th>
       </thead>
       <tbody>
         <tr v-for="item in products" :key="item.id">
@@ -29,13 +29,17 @@
               class="btn btn-outline-primary btn-sm"
               @click="openModal(false, item)"
             >
-              編輯
+              <BIconPencil
+                style="vertical-align: baseline !important; padding-right: 3px"
+              />編輯
             </button>
             <button
-              class="btn btn-outline-primary btn-sm"
+              class="btn btn-outline-danger btn-sm"
               @click="deleteModal(item)"
             >
-              刪除
+              <BIconTrash
+                style="vertical-align: baseline !important; padding-right: 3px"
+              />刪除
             </button>
           </td>
         </tr>
@@ -253,6 +257,7 @@
 
 <script>
 import $ from "jquery";
+import { BIconTrash, BIconPencil } from "bootstrap-vue";
 export default {
   data() {
     return {
@@ -261,7 +266,10 @@ export default {
       isNew: false,
     };
   },
-
+  components: {
+    BIconTrash,
+    BIconPencil,
+  },
   methods: {
     getProducts() {
       const api = `/api/${process.env.CUSTOMPATH}/products`;

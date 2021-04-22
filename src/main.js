@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'bootstrap'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 
 
@@ -13,6 +14,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, Axios)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Axios.defaults.withCredentials = true;
 
 /* eslint-disable no-new */
