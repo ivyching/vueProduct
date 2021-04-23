@@ -30,17 +30,13 @@
               class="btn btn-outline-primary btn-sm"
               @click="openModal(false, item)"
             >
-              <BIconPencil
-                style="vertical-align: baseline !important; padding-right: 3px"
-              />編輯
+              <BIconPencil class="iconStyle" />編輯
             </button>
             <button
               class="btn btn-outline-danger btn-sm"
               @click="deleteModal(item)"
             >
-              <BIconTrash
-                style="vertical-align: baseline !important; padding-right: 3px"
-              />刪除
+              <BIconTrash class="iconStyle" />刪除
             </button>
           </td>
         </tr>
