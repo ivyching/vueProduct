@@ -13,18 +13,18 @@
           </h6>
           <li class="nav-item">
             <router-link to="products" class="nav-link" active-class="active"
-              ><BIconMenuDown class="iconStyle2" />產品列表</router-link
+              ><i class="fas fa-clipboard-list"></i> 產品列表</router-link
             >
           </li>
           <li class="nav-item">
             <router-link to="orders" class="nav-link" active-class="active"
-              ><BIconReceipt class="iconStyle2" />訂單列表</router-link
+              ><i class="fal fa-list-alt"></i> 訂單列表</router-link
             >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="shopping-cart"></span>
-              <BIconCardHeading class="iconStyle2" />優惠券
+              <i class="far fa-money-bill"></i> 優惠券
             </a>
           </li>
           <h6
@@ -35,7 +35,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="users"></span>
-              <BIconMinecart class="iconStyle2" />模擬訂單
+              <i class="fas fa-cart-plus"></i> 模擬訂單
             </a>
           </li>
         </ul>
@@ -44,23 +44,11 @@
   </div>
 </template>
 <script>
-import {
-  BIconMenuDown,
-  BIconReceipt,
-  BIconCardHeading,
-  BIconMinecart,
-} from "bootstrap-vue";
 export default {
   data() {
     return {
       isActive: false,
     };
-  },
-  components: {
-    BIconMenuDown,
-    BIconReceipt,
-    BIconCardHeading,
-    BIconMinecart,
   },
 };
 </script>

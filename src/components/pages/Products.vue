@@ -30,13 +30,13 @@
               class="btn btn-outline-primary btn-sm"
               @click="openModal(false, item)"
             >
-              <BIconPencil class="iconStyle" />編輯
+              <i class="fas fa-pencil-alt"></i> 編輯
             </button>
             <button
               class="btn btn-outline-danger btn-sm"
               @click="deleteModal(item)"
             >
-              <BIconTrash class="iconStyle" />刪除
+              <i class="fas fa-trash"></i> 刪除
             </button>
           </td>
         </tr>
@@ -269,7 +269,6 @@
 
 <script>
 import $ from "jquery";
-import { BIconTrash, BIconPencil } from "bootstrap-vue";
 import Pagination from "@/components/Pagination";
 export default {
   data() {
@@ -285,8 +284,6 @@ export default {
     };
   },
   components: {
-    BIconTrash,
-    BIconPencil,
     Pagination,
   },
   methods: {
