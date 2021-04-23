@@ -7,16 +7,14 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <span data-feather="home"></span>
-              Dashboard
-            </a>
+            <router-link to="products" class="nav-link" active-class="active"
+              >產品列表</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file"></span>
-              Orders
-            </a>
+            <router-link to="orders" class="nav-link" active-class="active"
+              >訂單列表</router-link
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -82,3 +80,12 @@
     </nav>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      isActive: false,
+    };
+  },
+};
+</script>

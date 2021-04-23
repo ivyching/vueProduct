@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard'
 import Login from '@/components/pages/Login'
 import Products from '@/components/pages/Products'
+import Orders from '@/components/pages/Order'
 
 Vue.use(Router)
 
@@ -26,6 +27,15 @@ export default new Router({
                 meta: {
                     requireAuth: true,
                     title: 'IVYDAYSHOP產品'
+                },
+
+            }, {
+                path: 'orders',
+                name: 'Orders',
+                component: Orders,
+                meta: {
+                    requireAuth: true,
+                    title: 'IVYDAYSHOP訂單'
                 },
             }]
         },

@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import Axios from 'axios'
 import VueAxios from 'vue-axios'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
@@ -10,12 +12,16 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import App from './App'
 import router from './router'
+import Bus from './bus'
+import currencyFilter from './filters/currency'
 
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, Axios)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.component('Loading', Loading)
+Vue.filter('currency', currencyFilter)
 Axios.defaults.withCredentials = true;
 
 /* eslint-disable no-new */
