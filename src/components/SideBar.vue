@@ -33,10 +33,12 @@
             <span>模擬功能</span>
           </h6>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              <i class="fas fa-cart-plus"></i> 模擬訂單
-            </a>
+            <router-link
+              to="/customer_orders"
+              class="nav-link"
+              active-class="active"
+              ><i class="fas fa-cart-plus"></i> 模擬訂單</router-link
+            >
           </li>
         </ul>
       </div>

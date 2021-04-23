@@ -1,5 +1,5 @@
 export default function(num) {
-    console.log(num)
+
     let n = Number(num);
     if (!num) {
         n = 0

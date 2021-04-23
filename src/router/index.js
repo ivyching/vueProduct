@@ -4,6 +4,7 @@ import Dashboard from '@/components/Dashboard'
 import Login from '@/components/pages/Login'
 import Products from '@/components/pages/Products'
 import Orders from '@/components/pages/Order'
+import CustomerOrders from '@/components/pages/CustomerOrders'
 
 Vue.use(Router)
 
@@ -36,6 +37,25 @@ export default new Router({
                 meta: {
                     requireAuth: true,
                     title: 'IVYDAYSHOP訂單'
+                },
+            }]
+        },
+        {
+            path: '/',
+            name: 'Dashboard',
+            component: Dashboard,
+            meta: {
+                requireAuth: true,
+                title: 'IVYDAYSHOP'
+            },
+            children: [{
+
+                path: 'customer_orders',
+                name: 'CustomerOrders',
+                component: CustomerOrders,
+                meta: {
+                    requireAuth: true,
+                    title: 'IVYDAYSHO模擬訂單'
                 },
             }]
         },
