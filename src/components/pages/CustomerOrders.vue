@@ -109,11 +109,24 @@
                     </div>
                   </div>
                   <div class="mt-4">
-                    <select class="form-control" name="unitOption" id="unit">
-                      <option v-for="n in 10" :key="n" :value="n">
-                        {{ n }} {{ product.unit }}
+                    <select
+                      class="form-control"
+                      name="unitOption"
+                      id="unit"
+                      @change="calculateTotalAmount()"
+                      v-model="qty"
+                    >
+                      <option
+                        v-bind:value="unitOption.value"
+                        v-for="unitOption in unitOptions"
+                        :key="unitOption.value"
+                      >
+                        {{ unitOption.text }} {{ product.unit }}
                       </option>
                     </select>
+                  </div>
+                  <div class="mt-4 fa-pull-right">
+                    小計 {{ totalAmount }} 元
                   </div>
                 </div>
               </div>
@@ -136,7 +149,20 @@ export default {
       status: {
         loadingItem: "",
       },
-      unitOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      totalAmount: 0,
+      qty: 1,
+
+      unitOptions: [
+        { text: "1", value: 1 },
+        { text: "2", value: 2 },
+        { text: "3", value: 3 },
+        { text: "4", value: 4 },
+        { text: "5", value: 5 },
+        { text: "6", value: 6 },
+        { text: "7", value: 7 },
+        { text: "8", value: 8 },
+        { text: "9", value: 9 },
+      ],
     };
   },
   methods: {
@@ -160,6 +186,12 @@ export default {
         vm.product = response.data.product;
         vm.status.loadingItem = "";
       });
+    },
+    calculateTotalAmount() {
+      let vm = this;
+      let totalAmount = vm.product.price * vm.qty;
+
+      vm.totalAmount = totalAmount;
     },
   },
   created() {
