@@ -71,7 +71,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
-              style="color: white"
+              style="color: black"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -86,7 +86,7 @@
                 "
                 :style="{ backgroundImage: `url(${product.imageUrl})` }"
               ></div>
-              <div class="col-md-8 mt-4">
+              <div class="col-md-12 mt-4">
                 <div class="title">
                   <h5
                     class="modal-title"
@@ -97,8 +97,24 @@
                   </h5>
                 </div>
                 <div class="mt-4">
-                  <div class="col-md-12">{{ product.origin_price }} 元</div>
-                  <div class="col-md-8">現在只要 {{ product.price }} 元</div>
+                  <div
+                    class="d-flex justify-content-between align-items-baseline"
+                  >
+                    <!-- <div class="h5">2,800 元</div> -->
+                    <del class="h6"
+                      >{{ product.origin_price | currency }}元</del
+                    >
+                    <div class="h5">
+                      現在只要 {{ product.price | currency }} 元
+                    </div>
+                  </div>
+                  <div class="mt-4">
+                    <select class="form-control" name="unitOption" id="unit">
+                      <option v-for="n in 10" :key="n" :value="n">
+                        {{ n }} {{ product.unit }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -120,6 +136,7 @@ export default {
       status: {
         loadingItem: "",
       },
+      unitOptions: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     };
   },
   methods: {
