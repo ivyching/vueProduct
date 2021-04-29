@@ -38,7 +38,11 @@
               ></i>
               查看更多
             </button>
-            <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm ml-auto"
+              @click="addToCart(item.id)"
+            >
               <i
                 class="fas fa-spinner fa-spin"
                 v-if="status.loadingItem == item.id"
@@ -113,20 +117,29 @@
                       class="form-control"
                       name="unitOption"
                       id="unit"
-                      @change="calculateTotalAmount()"
-                      v-model="qty"
+                      @change="calculateTotalAmount(product.num)"
+                      v-model="product.num"
                     >
-                      <option
-                        v-bind:value="unitOption.value"
-                        v-for="unitOption in unitOptions"
-                        :key="unitOption.value"
-                      >
-                        {{ unitOption.text }} {{ product.unit }}
+                      <option :value="num" v-for="num in 10" :key="num">
+                        選購 {{ num }} {{ product.unit }}
                       </option>
                     </select>
                   </div>
                   <div class="mt-4 fa-pull-right">
                     小計 {{ totalAmount }} 元
+                  </div>
+                  <div class="mt-4">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm ml-auto"
+                      @click="addToCart(product.id, product.num)"
+                    >
+                      <i
+                        class="fas fa-spinner fa-spin"
+                        v-if="status.loadingItem == product.id"
+                      ></i>
+                      加到購物車
+                    </button>
                   </div>
                 </div>
               </div>
@@ -150,19 +163,6 @@ export default {
         loadingItem: "",
       },
       totalAmount: 0,
-      qty: 1,
-
-      unitOptions: [
-        { text: "1", value: 1 },
-        { text: "2", value: 2 },
-        { text: "3", value: 3 },
-        { text: "4", value: 4 },
-        { text: "5", value: 5 },
-        { text: "6", value: 6 },
-        { text: "7", value: 7 },
-        { text: "8", value: 8 },
-        { text: "9", value: 9 },
-      ],
     };
   },
   methods: {
@@ -187,11 +187,24 @@ export default {
         vm.status.loadingItem = "";
       });
     },
-    calculateTotalAmount() {
+    calculateTotalAmount(qty) {
       let vm = this;
-      let totalAmount = vm.product.price * vm.qty;
+      let totalAmount = vm.product.price * qty;
 
       vm.totalAmount = totalAmount;
+    },
+    addToCart(id, qty = 1) {
+      const vm = this;
+      const url = `/api/${process.env.CUSTOMPATH}/cart`;
+      vm.status.loadingItem = id;
+      const cart = {
+        product_id: id,
+        qty,
+      };
+      this.$http.post(url, { data: cart }).then((response) => {
+        console.log(response);
+        vm.status.loadingItem = "";
+      });
     },
   },
   created() {
