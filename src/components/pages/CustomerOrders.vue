@@ -53,6 +53,35 @@
         </div>
       </div>
     </div>
+    <div class="cartList mt-4 mb-4">
+      <div class="mt-4 col-sm-6">
+        <table class="table mt-4" style="position: absolute; left: 50%">
+          <thead>
+            <th></th>
+            <th width="50%">品名</th>
+            <th>數量</th>
+            <th>單價</th>
+          </thead>
+          <tbody>
+            <tr v-for="item in carts" :key="item.id">
+              <td>
+                <button class="btn btn-outline-danger btn-sm">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+              <td>{{ item.product.title }}</td>
+              <td>{{ item.qty }}/{{ item.product.unit }}</td>
+              <td class="text-right">{{ item.final_total }}</td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td class="text-right">總計</td>
+              <td class="text-right">{{ finalTotalAmount }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <div
       class="modal fade"
       id="productModal"
@@ -117,7 +146,7 @@
                       class="form-control"
                       name="unitOption"
                       id="unit"
-                      @change="calculateTotalAmount(product.num)"
+                      @change="calculateTotalAmount(product.num, product.price)"
                       v-model="product.num"
                     >
                       <option :value="num" v-for="num in 10" :key="num">
@@ -163,6 +192,8 @@ export default {
         loadingItem: "",
       },
       totalAmount: 0,
+      carts: [],
+      finalTotalAmount: 0,
     };
   },
   methods: {
@@ -187,9 +218,12 @@ export default {
         vm.status.loadingItem = "";
       });
     },
-    calculateTotalAmount(qty) {
+    calculateTotalAmount(qty, price) {
       let vm = this;
-      let totalAmount = vm.product.price * qty;
+
+      console.log(qty, price);
+
+      let totalAmount = price * qty;
 
       vm.totalAmount = totalAmount;
     },
@@ -204,11 +238,31 @@ export default {
       this.$http.post(url, { data: cart }).then((response) => {
         console.log(response);
         vm.status.loadingItem = "";
+        vm.getCart();
+        $("#productModal").modal("hide");
+      });
+    },
+    getCart() {
+      const vm = this;
+
+      const url = `/api/${process.env.CUSTOMPATH}/cart`;
+      vm.isLoading = true;
+
+      this.$http.get(url).then((response) => {
+        console.log(response);
+        vm.carts = response.data.data.carts;
+        vm.isLoading = false;
+        console.log(vm.carts);
+
+        vm.carts.forEach((element) => {
+          vm.finalTotalAmount += element.final_total;
+        });
       });
     },
   },
   created() {
     this.getProducts();
+    this.getCart();
   },
 };
 </script>
