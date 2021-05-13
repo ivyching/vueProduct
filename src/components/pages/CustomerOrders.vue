@@ -247,7 +247,7 @@ export default {
 
       const url = `/api/${process.env.CUSTOMPATH}/cart`;
       vm.isLoading = true;
-
+      vm.finalTotalAmount = 0;
       this.$http.get(url).then((response) => {
         console.log(response);
         vm.carts = response.data.data.carts;
