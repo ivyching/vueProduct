@@ -53,34 +53,60 @@
         </div>
       </div>
     </div>
-    <div class="cartList mt-4 mb-4">
-      <div class="mt-4 col-sm-6">
-        <table class="table mt-4" style="position: absolute; left: 50%">
-          <thead>
-            <th></th>
-            <th width="50%">品名</th>
-            <th>數量</th>
-            <th>單價</th>
-          </thead>
-          <tbody>
-            <tr v-for="item in carts" :key="item.id">
-              <td>
-                <button class="btn btn-outline-danger btn-sm">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </td>
-              <td>{{ item.product.title }}</td>
-              <td>{{ item.qty }}/{{ item.product.unit }}</td>
-              <td class="text-right">{{ item.final_total }}</td>
-            </tr>
-            <tr>
-              <td colspan="2"></td>
-              <td class="text-right">總計</td>
-              <td class="text-right">{{ finalTotalAmount }}</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="cartList mt-4 mb-4"></div>
+    <div class="mt-4 mb-4 col-sm-6" style="left: 25%">
+      <table class="table mt-4">
+        <thead>
+          <th></th>
+          <th width="50%">品名</th>
+          <th>數量</th>
+          <th>單價</th>
+        </thead>
+        <tbody>
+          <tr v-for="item in carts" :key="item.id">
+            <td>
+              <button class="btn btn-outline-danger btn-sm">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.qty }}/{{ item.product.unit }}</td>
+            <td class="text-right">{{ item.final_total }}</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td class="text-right">總計</td>
+            <td class="text-right">{{ cartTotalAmount }}</td>
+          </tr>
+          <tr class="finalTotal">
+            <td colspan="2"></td>
+            <td class="text-right">折扣價</td>
+            <td class="text-right">{{ finalTotalAmount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-4 mb-4 col-sm-6" style="left: 25%">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="請輸入優惠碼"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
+        <button class="btn btn-outline-secondary" type="button">
+          套用優惠碼
+        </button>
       </div>
+      <label for="basic-url" class="form-label">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="請輸入Email"
+        aria-label="Recipient's username"
+        aria-describedby="basic-addon2"
+      />
     </div>
     <div
       class="modal fade"
@@ -194,6 +220,7 @@ export default {
       totalAmount: 0,
       carts: [],
       finalTotalAmount: 0,
+      cartTotalAmount: 0,
     };
   },
   methods: {
@@ -252,11 +279,9 @@ export default {
         console.log(response);
         vm.carts = response.data.data.carts;
         vm.isLoading = false;
-        console.log(vm.carts);
 
-        vm.carts.forEach((element) => {
-          vm.finalTotalAmount += element.final_total;
-        });
+        vm.finalTotalAmount = response.data.data.final_total;
+        vm.cartTotalAmount = response.data.data.total;
       });
     },
   },
