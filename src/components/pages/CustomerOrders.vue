@@ -227,7 +227,7 @@ export default {
     getProducts(page = 1) {
       const vm = this;
 
-      const url = `/api/${process.env.CUSTOMPATH}/products?page=${page}`;
+      const url = `/api/${process.env.CUSTOMPATH}/products/all`;
       vm.isLoading = true;
 
       this.$http.get(url).then((response) => {
