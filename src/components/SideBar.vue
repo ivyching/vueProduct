@@ -7,7 +7,16 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+            class="
+              sidebar-heading
+              d-flex
+              justify-content-between
+              align-items-center
+              px-3
+              mt-4
+              mb-1
+              text-muted
+            "
           >
             <span>管理員</span>
           </h6>
@@ -22,13 +31,21 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart"></span>
-              <i class="far fa-money-bill"></i> 優惠券
-            </a>
+            <router-link to="coupons" class="nav-link" active-class="active"
+              ><i class="far fa-money-bill"></i> 優惠券</router-link
+            >
           </li>
           <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+            class="
+              sidebar-heading
+              d-flex
+              justify-content-between
+              align-items-center
+              px-3
+              mt-4
+              mb-1
+              text-muted
+            "
           >
             <span>模擬功能</span>
           </h6>

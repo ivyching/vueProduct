@@ -5,6 +5,7 @@ import Login from '@/components/pages/Login'
 import Products from '@/components/pages/Products'
 import Orders from '@/components/pages/Order'
 import CustomerOrders from '@/components/pages/CustomerOrders'
+import Counpons from '@/components/pages/Counpons'
 
 Vue.use(Router)
 
@@ -37,6 +38,14 @@ export default new Router({
                 meta: {
                     requireAuth: true,
                     title: 'IVYDAYSHOP訂單'
+                },
+            }, {
+                path: 'coupons',
+                name: 'coupons',
+                component: Counpons,
+                meta: {
+                    requireAuth: true,
+                    title: 'IVYDAYSHOP優惠券'
                 },
             }]
         },

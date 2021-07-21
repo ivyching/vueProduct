@@ -337,6 +337,11 @@ export default {
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         if (response.data.success) {
           vm.refreshProducts();
+          if (!vm.isNew) {
+            vm.$bus.$emit("message:push", "修改成功", "info");
+          } else {
+            vm.$bus.$emit("message:push", "新增成功", "success");
+          }
         } else {
           vm.$bus.$emit("message:push", response.data.message, "danger");
         }
