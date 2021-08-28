@@ -69,7 +69,12 @@
                 <i class="fas fa-trash"></i>
               </button>
             </td>
-            <td>{{ item.product.title }}</td>
+            <td>
+              {{ item.product.title }}
+              <div v-if="item.coupon" class="text-success" style="font-weight:bolder">
+                已套用優惠券
+              </div>
+            </td>
             <td>{{ item.qty }}/{{ item.product.unit }}</td>
             <td class="text-right">{{ item.final_total }}</td>
           </tr>
@@ -78,7 +83,7 @@
             <td class="text-right">總計</td>
             <td class="text-right">{{ cartTotalAmount }}</td>
           </tr>
-          <tr class="finalTotal">
+          <tr class="finalTotal" v-if="finalTotalAmount!==cartTotalAmount">
             <td colspan="2"></td>
             <td class="text-right">折扣價</td>
             <td class="text-right">{{ finalTotalAmount }}</td>
@@ -94,19 +99,12 @@
           placeholder="請輸入優惠碼"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
+          v-model="coupon_code"
         />
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="button" @click="addCouponCode">
           套用優惠碼
         </button>
       </div>
-      <label for="basic-url" class="form-label">Email</label>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="請輸入Email"
-        aria-label="Recipient's username"
-        aria-describedby="basic-addon2"
-      />
     </div>
     <div
       class="modal fade"
@@ -221,6 +219,7 @@ export default {
       carts: [],
       finalTotalAmount: 0,
       cartTotalAmount: 0,
+      coupon_code:""
     };
   },
   methods: {
@@ -295,6 +294,20 @@ export default {
         vm.isLoading = false;
 
        
+      });
+    },
+    addCouponCode(){
+      const vm = this;
+      const url = `/api/${process.env.CUSTOMPATH}/coupon`;
+  
+      const coupon = {
+       code:vm.coupon_code
+      };
+      vm.isLoading=true;
+      this.$http.post(url, { data: coupon }).then((response) => {
+        console.log(response);
+        vm.isLoading=false;
+        vm.getCart();
       });
     }
   },
