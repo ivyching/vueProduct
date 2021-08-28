@@ -105,6 +105,57 @@
           套用優惠碼
         </button>
       </div>
+      <div class="mb-3">
+       <label>Email</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="請輸入Email"
+          id="email"
+        />
+      </div>
+      <div class="mb-3">
+        <label>收件人姓名</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="請輸入收件人姓名"
+          id="name"
+        />
+      </div>
+      <div class="mb-3">
+        <label>收件人電話</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="請輸入收件人電話"
+          id="phone"
+          
+        />
+      </div>
+      <div class="mb-3">
+        <label>收件人地址</label>
+        <input
+          class="form-control"
+          type="text"
+          placeholder="請輸入收件人地址"
+          id="address"
+          
+        />
+      </div>
+      <div class="mb-3">
+        <label>留言</label>
+        <textarea
+          class="form-control"
+          id="message"
+          rows="5"
+        />
+      </div>
+      <div class="mb-3 text-right" >
+        <button class="btn btn-danger" type="button" >
+          送出訂單
+        </button>
+      </div>
     </div>
     <div
       class="modal fade"
