@@ -99,7 +99,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 10px">
           <div class="modal-header title">
-            <h5 class="modal-title" id="exampleModalLabel">新增優惠券</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{isNew?"新增優惠券":"編輯優惠券"}}</h5>
             <button
               type="button"
               class="close"
@@ -156,6 +156,7 @@
                   />
                 </div>
               </div>
+              <div class="inputFlex">
               <div class="col-md-6 mb-6 mt-3">
                 <label></label>
                 <div class="custom-control custom-checkbox">
@@ -174,6 +175,7 @@
                     >是否啟用</label
                   >
                 </div>
+              </div>
               </div>
             </form>
           </div>

@@ -97,7 +97,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content" style="border-radius: 10px">
           <div class="modal-header title">
-            <h5 class="modal-title" id="exampleModalLabel">新增產品</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{isNew?"新增產品":"編輯產品"}}</h5>
             <button
               type="button"
               class="close"

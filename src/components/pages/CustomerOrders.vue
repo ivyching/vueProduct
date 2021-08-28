@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="cartList mt-4 mb-4"></div>
-    <div class="mt-4 mb-4 col-sm-6" style="left: 25%">
+    <div class="mt-4 mb-4 col-sm-6" style="left: 25%" v-if="carts.length>0">
       <table class="table mt-4">
         <thead>
           <th></th>
@@ -65,7 +65,7 @@
         <tbody>
           <tr v-for="item in carts" :key="item.id">
             <td>
-              <button class="btn btn-outline-danger btn-sm">
+              <button class="btn btn-outline-danger btn-sm" @click="RemoveCartItem(item.id)">
                 <i class="fas fa-trash"></i>
               </button>
             </td>
@@ -86,7 +86,7 @@
         </tbody>
       </table>
     </div>
-    <div class="mt-4 mb-4 col-sm-6" style="left: 25%">
+    <div class="mt-4 mb-4 col-sm-6" style="left: 25%" v-if="carts.length>0">
       <div class="input-group mb-3">
         <input
           type="text"
@@ -284,6 +284,19 @@ export default {
         vm.cartTotalAmount = response.data.data.total;
       });
     },
+    RemoveCartItem(id){
+      const vm = this;
+
+      const url = `/api/${process.env.CUSTOMPATH}/cart/${id}`;
+      vm.isLoading = true;
+      vm.finalTotalAmount = 0;
+      this.$http.delete(url).then((response) => {
+         vm.getCart();
+        vm.isLoading = false;
+
+       
+      });
+    }
   },
   created() {
     this.getProducts();
