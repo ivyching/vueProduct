@@ -105,6 +105,7 @@
           套用優惠碼
         </button>
       </div>
+      <form @submit.prevent="addOrder">
       <div class="mb-3">
        <label>Email</label>
         <input
@@ -112,6 +113,7 @@
           type="text"
           placeholder="請輸入Email"
           id="email"
+           v-model="form.user.email"
         />
       </div>
       <div class="mb-3">
@@ -121,6 +123,7 @@
           type="text"
           placeholder="請輸入收件人姓名"
           id="name"
+          v-model="form.user.name"
         />
       </div>
       <div class="mb-3">
@@ -130,7 +133,7 @@
           type="text"
           placeholder="請輸入收件人電話"
           id="phone"
-          
+           v-model="form.user.tel"
         />
       </div>
       <div class="mb-3">
@@ -140,7 +143,7 @@
           type="text"
           placeholder="請輸入收件人地址"
           id="address"
-          
+           v-model="form.user.message"
         />
       </div>
       <div class="mb-3">
@@ -149,13 +152,15 @@
           class="form-control"
           id="message"
           rows="5"
+           v-model="form.message"
         />
       </div>
       <div class="mb-3 text-right" >
-        <button class="btn btn-danger" type="button" >
+        <button class="btn btn-danger" type="button" @click="addOrder">
           送出訂單
         </button>
       </div>
+      </form>
     </div>
     <div
       class="modal fade"
@@ -230,7 +235,7 @@
                     </select>
                   </div>
                   <div class="mt-4 fa-pull-right">
-                    小計 {{ totalAmount }} 元
+                    小計 {{ totalAmount&&product.num?totalAmount:product.num*product.price }} 元
                   </div>
                   <div class="mt-4">
                     <button
@@ -266,6 +271,15 @@ export default {
       status: {
         loadingItem: "",
       },
+      form:{
+        user:{
+          name:'',
+          email:'',
+          tel:'',
+          address:''
+        },
+        message:''
+      },
       totalAmount: 0,
       carts: [],
       finalTotalAmount: 0,
@@ -291,6 +305,7 @@ export default {
       vm.status.loadingItem = id;
       this.$http.get(url).then((response) => {
         $("#productModal").modal("show");
+        vm.totalAmount=0;
         vm.product = response.data.product;
         vm.status.loadingItem = "";
       });
@@ -357,6 +372,18 @@ export default {
       vm.isLoading=true;
       this.$http.post(url, { data: coupon }).then((response) => {
         console.log(response);
+        vm.isLoading=false;
+        vm.getCart();
+      });
+    },
+    addOrder(){
+       const vm = this;
+      const url = `/api/${process.env.CUSTOMPATH}/order`;
+  
+      const order = vm.form;
+      vm.isLoading=true;
+      this.$http.post(url, { data: order }).then((response) => {
+        console.log('訂單已建立',response);
         vm.isLoading=false;
         vm.getCart();
       });

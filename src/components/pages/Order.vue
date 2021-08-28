@@ -3,14 +3,23 @@
     <loading :active.sync="isLoading"></loading>
     <table class="table mt-4">
       <thead>
-        <th>購買時間</th>
-        <th>Email</th>
-        <th>購買款項</th>
-        <th>應付金額</th>
-        <th>是否付款</th>
+        <th width="80">購買時間</th>
+        <th width="100">Email</th>
+        <th width="180">購買款項</th>
+        <th width="120">應付金額</th>
+        <th width="80" class="text-center">是否付款</th>
       </thead>
       <tbody>
-        <tr></tr>
+        <tr v-for="item in OrderList" :key="item.id">
+          <td>{{ item.create_at }}</td>
+          <td>{{ item.user.email }}</td>
+          <td>{{ item.category }}</td>
+          <td class="text-right">{{ item.total }}</td>
+          <td class="text-center">
+            <span v-if="item.is_paid" class="text-success">是</span>
+            <span v-else class="text-warning">否</span>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -36,7 +45,7 @@ export default {
       vm.isLoading = true;
 
       this.$http.get(api).then((response) => {
-        vm.OrderList = response.data.products;
+        vm.OrderList = response.data.orders;
         vm.isLoading = false;
         vm.pagination = response.data.pagination;
       });
