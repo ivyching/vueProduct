@@ -113,8 +113,13 @@
           type="text"
           placeholder="請輸入Email"
           id="email"
+          name="email"
            v-model="form.user.email"
+          v-validate="'required|email'"
+          :class="{'is-invalid':errors.has('email')}"
+          required
         />
+         <span class="text-danger" v-if="errors.has('email')"> <b-icon icon="exclamation-circle-fill" variant="danger" style="margin-top:-3px"></b-icon> {{errors.first('email')}}</span>
       </div>
       <div class="mb-3">
         <label>收件人姓名</label>
@@ -123,18 +128,28 @@
           type="text"
           placeholder="請輸入收件人姓名"
           id="name"
+          name="name"
           v-model="form.user.name"
+          v-validate="'required'"
+          :class="{'is-invalid':errors.has('name')}"
+          required
         />
+        <span class="text-danger" v-if="errors.has('name')"> <b-icon icon="exclamation-circle-fill" variant="danger" style="margin-top:-3px"></b-icon> 姓名必須輸入</span>
       </div>
       <div class="mb-3">
         <label>收件人電話</label>
         <input
           class="form-control"
           type="text"
+          name="tel"
           placeholder="請輸入收件人電話"
-          id="phone"
+          id="tel"
            v-model="form.user.tel"
+           v-validate="'required'"
+           :class="{'is-invalid':errors.has('tel')}"
+           required
         />
+         <span class="text-danger" v-if="errors.has('tel')"> <b-icon icon="exclamation-circle-fill" variant="danger" style="margin-top:-3px"></b-icon> 電話必須輸入</span>
       </div>
       <div class="mb-3">
         <label>收件人地址</label>
@@ -143,8 +158,13 @@
           type="text"
           placeholder="請輸入收件人地址"
           id="address"
-           v-model="form.user.message"
+          name="address"
+           v-model="form.user.address"
+          v-validate="'required'"
+          :class="{'is-invalid':errors.has('address')}"
+          required
         />
+         <span class="text-danger" v-if="errors.has('address')"> <b-icon icon="exclamation-circle-fill" variant="danger" style="margin-top:-3px"></b-icon> 地址必須輸入</span>
       </div>
       <div class="mb-3">
         <label>留言</label>
@@ -152,6 +172,7 @@
           class="form-control"
           id="message"
           rows="5"
+          name="message"
            v-model="form.message"
         />
       </div>
@@ -379,14 +400,20 @@ export default {
     addOrder(){
        const vm = this;
       const url = `/api/${process.env.CUSTOMPATH}/order`;
-  
       const order = vm.form;
-      vm.isLoading=true;
-      this.$http.post(url, { data: order }).then((response) => {
-        console.log('訂單已建立',response);
-        vm.isLoading=false;
-        vm.getCart();
-      });
+      this.$validator.validate().then((result)=>{
+        if(result){
+            this.$http.post(url, { data: order }).then((response) => {
+              console.log('訂單已建立',response);
+              vm.$bus.$emit("message:push", "訂單送出成功", "success");
+              vm.isLoading=false;
+              vm.getCart();
+            });
+        }else{
+          console.log('資料輸入錯誤')
+        }
+      })
+
     }
   },
   created() {

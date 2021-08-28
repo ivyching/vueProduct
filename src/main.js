@@ -7,6 +7,8 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import VeeValidate from 'vee-validate';
+import zhTWValidte from 'vee-validate/dist/locale/zh_TW'
 
 
 
@@ -20,17 +22,14 @@ Vue.config.productionTip = false
 Vue.use(VueAxios, Axios)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(VeeValidate, {
+    events: 'change|blur|xxx'
+  })
+VeeValidate.Validator.localize('zh_TW',zhTWValidte)
 Vue.component('Loading', Loading)
 Vue.filter('currency', currencyFilter)
 Axios.defaults.withCredentials = true;
 
-/* eslint-disable no-new */
-new Vue({
-    el: '#app',
-    router,
-    components: { App },
-    template: '<App/>'
-})
 
 router.beforeEach((to, from, next) => {
 
@@ -55,4 +54,12 @@ router.beforeEach((to, from, next) => {
     }
 
 
+})
+
+/* eslint-disable no-new */
+new Vue({
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })
